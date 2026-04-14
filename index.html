@@ -158,14 +158,20 @@ document.getElementById("yesBtn").onclick = function() {
     burstHearts();
 
     setTimeout(() => {
-        this.style.position = "fixed";
-        this.style.top = "0";
-        this.style.left = "0";
-        this.style.width = "100vw";
-        this.style.height = "100vh";
-        this.style.fontSize = "40px";
-        this.innerText = "YOU'RE MINE NOW 💖😋";
-    }, 700);
+    this.style.position = "fixed";
+    this.style.top = "0";
+    this.style.left = "0";
+    this.style.width = "100vw";
+    this.style.height = "100vh";
+    this.style.fontSize = "40px";
+    this.innerText = "YOU'RE MINE NOW 💖😈";
+
+    // 💌 Second message after delay
+    setTimeout(() => {
+        this.innerText = "You know why we ended up together?\nThe answer's in your name, Urmee...\ncuz U-R-MEE 💖";
+    }, 2000);
+
+}, 700);
 };
 
 // ❌ NO BUTTON LOGIC
