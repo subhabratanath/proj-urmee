@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Urmee 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 📱 Mobile friendly */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 350px;
+}
+
+h1 {
+    color: #ff6f91;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    margin: 8px;
+    color: white;
+    transition: all 0.25s ease;
+}
+
+#yesBtn {
+    background: #28a745;
+}
+
+#noBtn {
+    background: #dc3545;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #ff6f91;
+    display: none;
+}
+
+/* 💖 HEARTS */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    pointer-events: none;
+    animation: float 1.2s ease-out forwards;
+}
+
+@keyframes float {
+    0% {
+        transform: scale(1) translate(0,0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2) translate(var(--x), var(--y));
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" src="song.mp3" loop></audio>
+
+<div class="card">
+    <h1>Hey <span id="name">Urmee</span> 💕</h1>
+    <p>You had me at Hello. Do you wish to stay with me forever and travel the world together ?</p>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😢</button>
+    </div>
+
+    <p id="message">I knew it 😳💖</p>
+</div>
+
+<script>
+// 💌 CUSTOM NAME (change this)
+const personName = "Urmee"; // <-- replace with name
+document.getElementById("name").innerText = personName;
+
+// 🎵 Smooth music fade-in
+const music = document.getElementById("bgMusic");
+document.body.addEventListener("click", () => {
+    music.volume = 0;
+    music.play();
+
+    let vol = 0;
+    let fade = setInterval(() => {
+        if (vol < 1) {
+            vol += 0.05;
+            music.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+}, { once: true });
+
+// 💖 HEART BURST FUNCTION
+function burstHearts() {
+    for (let i = 0; i < 40; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = "💖";
+        heart.classList.add("heart");
+
+        let x = (Math.random() - 0.5) * 500 + "px";
+        let y = (Math.random() - 0.5) * 500 + "px";
+
+        heart.style.setProperty('--x', x);
+        heart.style.setProperty('--y', y);
+
+        heart.style.left = "50%";
+        heart.style.top = "50%";
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1200);
+    }
+}
+
+// 😈 YES CLICK
+document.getElementById("yesBtn").onclick = function() {
+    document.getElementById("message").style.display = "block";
+    burstHearts();
+
+    setTimeout(() => {
+        this.style.position = "fixed";
+        this.style.top = "0";
+        this.style.left = "0";
+        this.style.width = "100vw";
+        this.style.height = "100vh";
+        this.style.fontSize = "40px";
+        this.innerText = "YOU'RE MINE NOW 💖😋";
+    }, 700);
+};
+
+// ❌ NO BUTTON LOGIC
+let noClickCount = 0;
+const messages = [
+    "Babe, please, say yes !!",
+    "Boobies, now you are making me sad",
+    "Please please please, don't say no, Bra is dukhi now !",
+    "Now you have to say yes...."
+];
+
+document.getElementById("noBtn").onclick = function() {
+    if (noClickCount < messages.length) {
+        this.innerText = messages[noClickCount];
+    }
+
+    // Grow YES
+    let yesBtn = document.getElementById("yesBtn");
+    yesBtn.style.transform = `scale(${1 + noClickCount * 0.2})`;
+
+    noClickCount++;
+
+    if (noClickCount === messages.length) {
+        this.onmouseover = moveButton;
+    }
+};
+
+// 🏃 RUN AWAY BUTTON
+function moveButton() {
+    const btn = document.getElementById("noBtn");
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+
+    btn.style.position = "absolute";
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+}
+</script>
+
+</body>
+</html>
